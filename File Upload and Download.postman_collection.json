@@ -1,0 +1,146 @@
+{
+	"info": {
+		"_postman_id": "249266b2-c397-423a-a539-eff19fe99498",
+		"name": "File Upload and Download",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "PostUploadFile",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify response\", function () {\r",
+							"    x=pm.response.json();\r",
+							"    pm.expect(x.fileName).to.equal(\"SQA doc.txt\")\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/E:/SQA doc.txt"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/uploadFile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"uploadFile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MultipleFilesUpload",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify response\", function () {\r",
+							"    x=pm.response.json();\r",
+							"    pm.expect(x[0].fileName).to.equal(\"435.txt\");\r",
+							"     pm.expect(x[1].fileName).to.equal(\"code.txt\");\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "files",
+							"type": "file",
+							"src": [
+								"/E:/ALL TXT FILE/435.txt",
+								"/E:/ALL TXT FILE/code.txt"
+							]
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/uploadMultipleFiles",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"uploadMultipleFiles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DownloadFiles",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify testvalue\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Test mobile applications and web application.\");\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/downloadFile/SQA%20doc.txt",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"downloadFile",
+						"SQA%20doc.txt"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
